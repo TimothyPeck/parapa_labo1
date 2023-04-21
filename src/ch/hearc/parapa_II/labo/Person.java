@@ -50,7 +50,7 @@ public class Person implements Runnable, Comparable<Person> {
 			/*
 			 * -----------------------------------------------------------------------------
 			 * ------------------
-			 * TODO : Faire patienter la personne tant que le temps écoule ne depasse pas
+			 * DONE : Faire patienter la personne tant que le temps écoule ne depasse pas
 			 * son temps de depart.
 			 * Une fois lance, ajoutez la personne dans la file d'attente d'acces à son
 			 * document
@@ -86,7 +86,7 @@ public class Person implements Runnable, Comparable<Person> {
 				/*
 				 * -----------------------------------------------------------------------------
 				 * -------------------------------------------------------
-				 * TODO : Tentative d'ecriture dans le document.
+				 * DONE : Tentative d'ecriture dans le document.
 				 * 
 				 * Remarque : - Penser a faire dormir le thread quand il a acces au document
 				 * (durationTime)
