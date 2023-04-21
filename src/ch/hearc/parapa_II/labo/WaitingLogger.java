@@ -325,7 +325,6 @@ public class WaitingLogger {
 	 *         should continue running.
 	 */
 	private boolean stopMain() {
-		System.out.println("nbPersonsDone : " + nbPersonsDone + " persons.size() : " + persons.size());
 		return nbPersonsDone >= persons.size();
 	}
 
