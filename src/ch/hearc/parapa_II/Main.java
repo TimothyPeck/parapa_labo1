@@ -77,11 +77,18 @@ public class Main {
 
 			while (!consoleTask.isCancelled()) {
 
-				System.out.println("Please press enter to continue or E/e to exit the program");
+				System.out.println("Please press N/n to continue or E/e to exit the program");
 				String input = sc.nextLine();
 
-				if (input.toLowerCase().equals("e") || waitingLogger.popNextLog()) {
+				if (input.toLowerCase().equals("e")) {
 					consoleTask.cancel(true);
+				} else if (input.toLowerCase().equals("n")) {
+					waitingLogger.popNextLog();
+					if (waitingLogger.isDone()) {
+						consoleTask.cancel(true);
+					}
+				} else {
+					System.out.println("Invalid input");
 				}
 			}
 			sc.close();

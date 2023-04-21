@@ -104,7 +104,6 @@ public class Person implements Runnable, Comparable<Person> {
 				Thread.sleep(durationTime);
 				waitingLogger.finished(this, timer.timePassed());
 			}
-			waitingLogger.finished(this, timer.timePassed());
 		} catch (InterruptedException e) {
 		} // <- a docummenter quand necessaire (gestion
 			// de l'interruption du programme)

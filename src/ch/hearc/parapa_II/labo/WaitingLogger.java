@@ -33,6 +33,7 @@ public class WaitingLogger {
 
 	// Variables
 	private ArrayList<Person> persons;
+	private int nbPersonsDone = 0;
 
 	// Singletons
 	private Database db;
@@ -156,6 +157,7 @@ public class WaitingLogger {
 		Log log = new Log(Log.Type.FINISHED, p, timer);
 		personLogs.get(p).add(log);
 		documentLogs.get(p.getDocument()).add(log);
+		nbPersonsDone++;
 	}
 
 	/**
@@ -174,9 +176,9 @@ public class WaitingLogger {
 		return stopMain();
 	}
 
-/**
- * This function prints information about threads in a formatted way.
- */
+	/**
+	 * This function prints information about threads in a formatted way.
+	 */
 	private void printThreadInfo() {
 		String output = "## Threads : ##\n\n";
 
@@ -190,10 +192,14 @@ public class WaitingLogger {
 		System.out.println(output);
 	}
 
-	// The `printDocumentInfo()` method is responsible for printing information about the documents
-	// being accessed by the threads. It iterates over the `documentLogs` map, which contains a list
-	// of logs for each document, and extracts the list of persons waiting to access the document and
-	// the list of persons currently processing the document. It then formats this information into a
+	// The `printDocumentInfo()` method is responsible for printing information
+	// about the documents
+	// being accessed by the threads. It iterates over the `documentLogs` map, which
+	// contains a list
+	// of logs for each document, and extracts the list of persons waiting to access
+	// the document and
+	// the list of persons currently processing the document. It then formats this
+	// information into a
 	// string and prints it to the console.
 	private void printDocumentInfo() {
 		String output = "## Documents : ##\n\n";
@@ -239,7 +245,8 @@ public class WaitingLogger {
 	}
 
 	/**
-	 * The function prints a timeline of events for each person in the personLogs map.
+	 * The function prints a timeline of events for each person in the personLogs
+	 * map.
 	 * 
 	 * @param currentTime The current time in milliseconds.
 	 * @param frameLength The length of each frame in milliseconds.
@@ -288,7 +295,7 @@ public class WaitingLogger {
 					outLine += "W";
 				else if (type == Type.REMOVE)
 					outLine += "R";
-				else
+				else if (type == Type.FINISHED)
 					outLine += "F";
 			}
 			String lastChar = Character.toString(outLine.charAt(outLine.length() - 1));
@@ -305,21 +312,31 @@ public class WaitingLogger {
 	}
 
 	/**
-	 * The function checks if all persons in a map have a log with a "FINISHED" type.
+	 * The function returns true if the number of persons done is equal to the total
+	 * number of persons.
 	 * 
-	 * @return The method is returning a boolean value. It returns true if the number of logs with type
-	 * "FINISHED" is equal to the total number of persons, and false otherwise.
+	 * @return The method `stopMain()` is returning a boolean value. It is checking
+	 *         if the number of
+	 *         persons who have completed their task (`nbPersonsDone`) is equal to
+	 *         the total number of persons
+	 *         (`persons.size()`). If they are equal, it returns `true`, indicating
+	 *         that the main program should
+	 *         stop. Otherwise, it returns `false`, indicating that the program
+	 *         should continue running.
 	 */
 	private boolean stopMain() {
-		int finishedCount = 0;
-		for (Map.Entry<Person, List<Log>> entry : personLogs.entrySet()) {
-			List<Log> logs = entry.getValue();
-			for (Log log : logs) {
-				if (log.getType() == Log.Type.FINISHED) {
-					finishedCount++;
-				}
-			}
-		}
-		return finishedCount == persons.size();
+		System.out.println("nbPersonsDone : " + nbPersonsDone + " persons.size() : " + persons.size());
+		return nbPersonsDone >= persons.size();
+	}
+
+	/**
+	 * The function returns the result of calling the stopMain() method as a boolean
+	 * value.
+	 * 
+	 * @return A boolean value is being returned, which is the result of calling the
+	 *         method `stopMain()`.
+	 */
+	public boolean isDone() {
+		return stopMain();
 	}
 }
