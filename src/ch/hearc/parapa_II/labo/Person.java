@@ -79,7 +79,7 @@ public class Person implements Runnable, Comparable<Person> {
 				 */
 
 				waitingLogger.removeWaiting(this, timer.timePassed());
-				String content = doc.readContent();
+				doc.readContent();
 				Thread.sleep(durationTime);
 				waitingLogger.finished(this, timer.timePassed());
 			} else {
